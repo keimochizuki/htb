@@ -88,7 +88,7 @@ you can learn the binary format of htb files in TEMPO's reference manual.
 First of all, the unit of information stored with TEMPO system
 is an htb file, a binary file with .htb extension.
 In a given htb file, there can be a set of
-multiple experimental data called databases.
+multiple experimental data called \dQuote{databases}.
 A database is a bundle of data with same data type,
 which is one of the three possible types:
 \dQuote{spike}, \dQuote{event} or \dQuote{analog}.
@@ -104,16 +104,35 @@ recorded as a transition of voltage loaded on A/D converter board.
 Details of each data type are subsequently mentioned.
 
 The type of a database must be one of the three types above.
+Other types are not accepted in TEMPO system,
+and a database has one and only one data type from those three.
 However, as mentioned before, an htb file can contain
 multiple databases, and they can have different types.
 This way TEMPO system can bundle up different types of
 experimental data into one htb file.
 
+A database, in turn, is composed of a MxN matrix,
+where M is the number of data points,
+and N is the number of data's input streams which are called \dQuote{channels}.
+A channel contains spiking of one isolated single neuron
+in spike database,
+and voltage input from one A/D board's input pin
+in analog database.
+Event database can also contain multiple channels.
+For example, the first channel of an event database
+is used to marker the timings of major events in the experiment
+(e.g., trial start, response, reward delivery, etc...),
+whereas the second channel stores additional information
+about the observed events
+(e.g., serial number of the trial, response time, amout of reward, etc...).
 
-
-
-For example, your experiment may have simultaneous recording of
-up to 20 isolated unit activities,
+Taken together, an htb file may be composed of
+multiple databases that can (but not necessarily need to) be
+different types,
+and each database may be composed of one or more channels.
+For example, imagine that your experiment consists of
+simultaneous recording of
+up to 20 isolated spiking activities,
 one event sequence for data alignment,
 and two analog values that corresponds to the x and y coordinates
 of the eye position.

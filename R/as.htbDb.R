@@ -29,8 +29,8 @@
 #' Note that for event databases,
 #' normal htbGetDb function performs data transformation
 #' using character pattern matching (see Details in htbGetDb).
-#' In as.htbDb, however, just directly pass event names (a vector of strings)
-#' in the first element of the input list.
+#' In as.htbDb, however, just pass event names (a vector of strings)
+#' directly in the first element of the input list.
 #' The second element is regarded as
 #' channel with timing information.
 #'
@@ -38,7 +38,7 @@
 #' @param type A string. The type of the resulting htbDb object
 #'   (either one of \dQuote{spike}, \dQuote{event} or \dQuote{analog}).
 #'
-#' @return An htbDb objects.
+#' @return An htbDb object.
 #'   Note that normal readout from htbGetDb function is
 #'   a list of htbDb objects, because an htb file can
 #'   contain multiple databases at once.
