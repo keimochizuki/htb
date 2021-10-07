@@ -71,9 +71,9 @@ the time needed for the data extraction will be reduced
 in the next time, because it actually does not reads the data from
 htb files but from RData files.
 }
-\section{Data types in htb files}{
- The format of htb files
-may seem to be a bit complicated,
+\section{General organization of an htb file}{
+
+The format of htb files may seem to be a bit complicated,
 especially for those unfamiliar to TEMPO system.
 The author personally does not think that
 the deep understanding on these formats is mandatory for everyone.

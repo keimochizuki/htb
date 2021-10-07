@@ -59,7 +59,7 @@ if (!grepl("\\.eps$", filename, ignore.case = TRUE)) {
 	filename <- paste(filename, ".eps", sep = "")
 }
 dir.check(filename)
-postscript(file = filename, width = width, height = height,
+grDevices::postscript(file = filename, width = width, height = height,
 	paper = paper, horizontal = horizontal, ...)
 
 invisible()

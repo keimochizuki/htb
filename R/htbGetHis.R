@@ -75,7 +75,7 @@ if (attributes(ras)$type == "spike") {
 		if (length(da[[i]]) != 0) {
 			tmp <- do.call(cbind, da[[i]])
 			y[[i]] <- rowMeans(tmp)
-			s[[i]] <- apply(X = tmp, MARGIN = 1, FUN = sd)
+			s[[i]] <- apply(X = tmp, MARGIN = 1, FUN = stats::sd)
 		} else {
 			y[[i]] <- rep(NA, length(x))
 			s[[i]] <- rep(NA, length(x))

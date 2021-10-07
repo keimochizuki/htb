@@ -34,7 +34,7 @@ l <- sapply(X = xlim, FUN = diff)
 npanel <- length(xlim)
 
 if (is.null(xtick)) {
-	xtick <- lapply(X = xlim, FUN = axisTicks, log = FALSE)
+	xtick <- lapply(X = xlim, FUN = grDevices::axisTicks, log = FALSE)
 } else if (!is.list(xtick)) {
 	xtick <- list(xtick)
 }
@@ -49,17 +49,18 @@ xshift <- c(0, xshift[-npanel]) +
 	xsp * seq(0, length.out = npanel) -
 	sapply(X = xlim, FUN="[", 1)
 
-plot(0, 0, type = "n", xlim = xlim_all, ylim = ylim,
+graphics::plot(0, 0, type = "n", xlim = xlim_all, ylim = ylim,
 	xlab = xlab, ylab = ylab,
 	bty = "n", xaxt = "n", xaxs = xaxs, yaxt = "n", ...)
+usr <- graphics::par("usr")
 
 if (!is.null(sqlim)) {
 	sqlim <- matrix(unlist(sqlim), ncol = 2, byrow = TRUE)
 	sqpanel <- matrix(unlist(sqpanel), ncol = 2, byrow = TRUE)
 	nsq <- nrow(sqlim)
 	sqcol <- rep(sqcol, length.out = nsq)
-	rect(xleft = sqlim[, 1] + xshift[sqpanel[, 1]], ybottom = par("usr")[3],
-		xright = sqlim[, 2] + xshift[sqpanel[, 2]], ytop = par("usr")[4],
+	graphics::rect(xleft = sqlim[, 1] + xshift[sqpanel[, 1]], ybottom = usr[3],
+		xright = sqlim[, 2] + xshift[sqpanel[, 2]], ytop = usr[4],
 		col = sqcol, border = NA)
 }
 
@@ -72,21 +73,21 @@ if (!is.null(vlat)) {
 	nvl <- length(vlat)
 	vlcol <- rep(vlcol, length.out = nvl)
 	vllty <- rep(vllty, length.out = nvl)
-	segments(vlat + xshift[vlpanel], par("usr")[3], y1 = par("usr")[4],
+	graphics::segments(vlat + xshift[vlpanel], usr[3], y1 = usr[4],
 		col = vlcol, lty = vllty)
 }
 
 if (xaxt != "n") {
 	at <- unlist(xtick)
-	axis(1, at = at + rep(xshift, sapply(X = xtick, FUN = length)),
+	graphics::axis(1, at = at + rep(xshift, sapply(X = xtick, FUN = length)),
 		labels = at, xaxt = xaxt, ...)
 }
-axis(2, ...)
-box(bty = bty, ...)
+graphics::axis(2, ...)
+graphics::box(bty = bty, ...)
 
 if (slash && (npanel > 1)) {
 	sapply(X = xshift[-1] + sapply(X = xlim, FUN = "[", 1)[-1] - xsp / 2,
-		FUN = druSlashAxis, w = 0.01, h = 0.03, side = 1)
+		FUN = axslash, w = 0.01, h = 0.03, side = 1)
 }
 
 return(xshift)

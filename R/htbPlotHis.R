@@ -197,10 +197,11 @@ if (is.null(ylab) && !is.null(his)) {
 
 if (rasty=="p") {
 	raster <- function(x, y, pch = raspch, ...) {
-		points(x = x, y = y, pch = pch, ...) }
+		graphics::points(x = x, y = y, pch = pch, ...) }
 } else if (rasty=="l") {
-	raster <- function(x, y, ...) {
-		segments(x0 = x, y0 = y, x1 = x, y1 = y-ysep, lend = "butt", ...) }
+	#raster <- function(x, y, ...) {
+	raster <- function(x, y, pch = raspch, ...) {
+		graphics::segments(x0 = x, y0 = y, x1 = x, y1 = y-ysep, lend = "butt", ...) }
 }
 
 
@@ -209,7 +210,7 @@ xshift <- htbPlotWindow(xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab,
 	sqlim = sqlim, sqpanel = sqpanel, sqcol = sqcol,
 	vlat = NULL, # Leave vertical lines later
 	bty = bty, las = las, ...)
-usr <- par("usr")
+usr <- graphics::par("usr")
 
 
 
@@ -273,21 +274,21 @@ for (i in 1:npanel) {
 				if (!is.null(ss)) {
 					if (sdty == "l") {
 						lapply(X = ypm, FUN=function(y) {
-							lines(xs, y, col = sdcol[[i]][j], lty = sdlty[[i]][j], lwd = sdlwd[[i]][j]) })
+							graphics::lines(xs, y, col = sdcol[[i]][j], lty = sdlty[[i]][j], lwd = sdlwd[[i]][j]) })
 					} else if (sdty == "b") {
-						segments(xs, ypm[[1]], y1 = ypm[[2]],
+						graphics::segments(xs, ypm[[1]], y1 = ypm[[2]],
 							col = sdcol[[i]][j], lty = sdlty[[i]][j], lwd = sdlwd[[i]][j])
 					} else if (sdty == "p") {
-						polygon(c(xs, rev(xs)), c(ypm[[1]], rev(ypm[[2]])),
+						graphics::polygon(c(xs, rev(xs)), c(ypm[[1]], rev(ypm[[2]])),
 							border = NA, col = sdcol[[i]][j])
 					}
 				}
 			}
 			if (histy == "h") {
 				b <- tmphis$param[[j]]$bin
-				rect(xs - b/2, 0, xs + b/2, ys, col = hiscol[[i]][j], border = hiscol[[i]][j])
+				graphics::rect(xs - b/2, 0, xs + b/2, ys, col = hiscol[[i]][j], border = hiscol[[i]][j])
 			} else {
-				lines(xs, ys, col = hiscol[[i]][j], lty = hislty[[i]][j], lwd = hislwd[[i]][j])
+				graphics::lines(xs, ys, col = hiscol[[i]][j], lty = hislty[[i]][j], lwd = hislwd[[i]][j])
 			}
 		}
 	}
@@ -297,7 +298,7 @@ for (i in 1:npanel) {
 
 if (n_ev > 0) {
 	if (is.null(evcol)) {
-		evcol <- rainbow(length(uni_ev))
+		evcol <- grDevices::rainbow(length(uni_ev))
 	} else {
 		evcol <- rep(evcol, length.out = n_ev)
 	}
@@ -305,7 +306,7 @@ if (n_ev > 0) {
 		col = rep(evcol, sapply(X = xs_ev, FUN = length)))
 
 	if (!is.null(evleg)) {
-		legend(x = evleg, legend = uni_ev, col = evcol,
+		graphics::legend(x = evleg, legend = uni_ev, col = evcol,
 			pch = evpch, cex = evcex, bty = evbty, bg = "white", inset = 0.02)
 	}
 }
@@ -314,7 +315,7 @@ if (!is.null(hisleg)) {
 		hisname <- sapply(X = his[[1]]$param, FUN = "[[", "title")
 	}
 	if (length(hisname) > 0) {
-		legend(x = hisleg, legend = hisname, col = hiscol[[1]],
+		graphics::legend(x = hisleg, legend = hisname, col = hiscol[[1]],
 			pch = hispch, cex = hiscex, bty = hisbty, bg = "white", inset = 0.02)
 	}
 }
@@ -328,7 +329,7 @@ if (!is.null(vlat)) {
 	nvl <- length(vlat)
 	vlcol <- rep(vlcol, length.out = nvl)
 	vllty <- rep(vllty, length.out = nvl)
-	segments(vlat + xshift[vlpanel], usr[3], y1 = usr[4],
+	graphics::segments(vlat + xshift[vlpanel], usr[3], y1 = usr[4],
 		col = vlcol, lty = vllty)
 }
 
@@ -373,7 +374,7 @@ if (class(pop) == "htbHis") {
 			next
 		} else {
 			pop$da$y[[i]] <- rowMeans(tmpy, na.rm = TRUE)
-			pop$da$s[[i]] <- apply(X = tmpy, MARGIN = 1, FUN = sd, na.rm = TRUE) /
+			pop$da$s[[i]] <- apply(X = tmpy, MARGIN = 1, FUN = stats::sd, na.rm = TRUE) /
 				switch(type, sd = 1, se = sqrt(ncol(tmpy)))
 		}
 	}

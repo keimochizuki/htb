@@ -56,10 +56,10 @@
 #'
 #'   db_event <- as.htbDb(list(
 #'     c("TRL_START", "EV1", "EV2", "REWARD", "TRL_END"),
-#'     time = cumsum(ceiling(runif(5, 100, 300))),
+#'     time = cumsum(ceiling(runif(5, 100, 300)))),
 #'     type = "event")
 #'
-#'   db_spike <- as.htbDb(replicate(2, {
+#'   db_analog <- as.htbDb(replicate(2, {
 #'     cumsum(ceiling(rnorm(2000, sd = 4))) },
 #'     simplify = FALSE), type = "analog")
 #'

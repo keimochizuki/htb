@@ -36,7 +36,7 @@ if (type == "rainbow") {
 }
 
 if (pal) {
-	col <- colorRampPalette(col)(n)
+	col <- grDevices::colorRampPalette(col)(n)
 }
 
 return(col)

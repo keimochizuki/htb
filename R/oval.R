@@ -23,7 +23,7 @@ if (theta != 0) {
 xs <- xs + x
 ys <- ys + y
 
-polygon(xs, ys, ...)
+graphics::polygon(xs, ys, ...)
 
 invisible(list(x = xs, y = ys))
 }

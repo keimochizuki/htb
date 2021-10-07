@@ -13,7 +13,7 @@ as.htbDb(db, type)
 (either one of \dQuote{spike}, \dQuote{event} or \dQuote{analog}).}
 }
 \value{
-An htbDb objects.
+An htbDb object.
   Note that normal readout from htbGetDb function is
   a list of htbDb objects, because an htb file can
   contain multiple databases at once.
@@ -54,8 +54,8 @@ and analog integer values for analog database).
 Note that for event databases,
 normal htbGetDb function performs data transformation
 using character pattern matching (see Details in htbGetDb).
-In as.htbDb, however, just directly pass event names (a vector of strings)
-in the first element of the input list.
+In as.htbDb, however, just pass event names (a vector of strings)
+directly in the first element of the input list.
 The second element is regarded as
 channel with timing information.
 }
@@ -67,10 +67,10 @@ channel with timing information.
 
   db_event <- as.htbDb(list(
     c("TRL_START", "EV1", "EV2", "REWARD", "TRL_END"),
-    time = cumsum(ceiling(runif(5, 100, 300))),
+    time = cumsum(ceiling(runif(5, 100, 300)))),
     type = "event")
 
-  db_spike <- as.htbDb(replicate(2, {
+  db_analog <- as.htbDb(replicate(2, {
     cumsum(ceiling(rnorm(2000, sd = 4))) },
     simplify = FALSE), type = "analog")
 

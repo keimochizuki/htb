@@ -166,7 +166,7 @@ if (file.exists(fn_rdata) && !remake) {
 
 	load(fn_rdata)
 	cat("Loaded ", fn_rdata, "\n", sep="")
-	flush.console()
+	utils::flush.console()
 
 } else {
 
@@ -269,7 +269,7 @@ if (file.exists(fn_rdata) && !remake) {
 				tmp$ev <- codes
 				tmp$time <- time
 			} else {
-				e <- read.table(ecode, stringsAsFactors = FALSE,
+				e <- utils::read.table(ecode, stringsAsFactors = FALSE,
 					sep = "\t", comment.char = "#")
 				ec <- paste("^", gsub("\\*", "[^,]+", e[, 1]), sep = "")
 
@@ -306,7 +306,7 @@ if (file.exists(fn_rdata) && !remake) {
 	}
 	names(db) <- paste("db", seq(along = db), sep = "")
 	cat("Extracted ", fn_htb, "\n", sep="")
-	flush.console()
+	utils::flush.console()
 
 	save(list = "db", file = fn_rdata)
 }
