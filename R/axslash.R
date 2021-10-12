@@ -1,4 +1,4 @@
-#' Draw a double slash to the graph axis
+#' Drawer of axis double slash
 #'
 #' Draws a double slash to the axis to indicate a gap in graph range.
 #'
@@ -37,10 +37,14 @@
 #' @return NULL
 #'
 #' @examples
-#'   y <- runif(100)
-#'   plot(1:100, y, type = "l", xlim = c(1, 110))
-#'   points(110, mean(y))
-#'   axslash(105)
+#'   x <- seq(-3, 3)
+#'   z <- 10
+#'   y <- pnorm(x)
+#'   plot(x, y, type = "o", bty = "l",
+#'     xlim = c(min(x), max(x) + 1), xaxt = "n")
+#'   points(max(x) + 1, pnorm(z))
+#'   axis(1, at = c(x, max(x) + 1), labels = c(x, z))
+#'   axslash(max(x) + 0.5, deg = 60)
 #'
 #' @keywords aplot
 #'
@@ -62,7 +66,7 @@ axslash <- function(
 ) {
 
 if (wrapdeg(deg) == 0) {
-	stop("axslash: <deg> must be non-zero degree")
+	stop("`deg` must be non-zero degree")
 }
 
 n <- length(at)

@@ -2,32 +2,32 @@
 % Please edit documentation in R/as.htbDb.R
 \name{as.htbDb}
 \alias{as.htbDb}
-\title{Constructor of an empty/artificial htbDb object}
+\title{Constructor of empty htbDb objects}
 \usage{
 as.htbDb(db, type)
 }
 \arguments{
-\item{db}{A list. The dataset to be converted into an htbDb object.}
+\item{db}{A list. The dataset to be converted into an \code{htbDb} object.}
 
-\item{type}{A string. The type of the resulting htbDb object
-(either one of \dQuote{spike}, \dQuote{event} or \dQuote{analog}).}
+\item{type}{A string. The type of the resulting \code{htbDb} object
+(either one of \code{spike}, \code{event} or \code{analog}).}
 }
 \value{
-An htbDb object.
-  Note that normal readout from htbGetDb function is
-  a list of htbDb objects, because an htb file can
-  contain multiple databases at once.
-  On the other hand, as.htbDb returns just an htbDb ojbect
-  (not a list of those objects).
-  Therefore, some kind of data nesting and/or nest unpacking
-  may be required to use constructed htbDb object(s)
-  in your testing.
+An \code{htbDb} object.
+Note that normal readout from \code{\link[=htbGetDb]{htbGetDb()}} function is
+a list of \code{htbDb} objects, because an htb file can
+contain multiple databases at once.
+On the other hand, \code{\link[=as.htbDb]{as.htbDb()}} returns just an \code{htbDb} ojbect
+(not a list of those objects).
+Therefore, some kind of data nesting and/or nest unpacking
+may be required to use constructed \code{htbDb} object(s)
+in your testing.
 }
 \description{
 Constructs an empty/artificial htbDb object with designated type.
 }
 \details{
-The readout from an .htb file is a list of htbDb objects
+The readout from an .htb file is a list of \code{htbDb} objects
 which is the most primitive data in TEMPO system.
 Normally you will continue analyzing those extracted data
 obtained in your own real-world experiment.
@@ -37,24 +37,24 @@ This way you can check whether your script is working correctly or not
 using virtual data with known properties
 (e.g., time locking to some events, difference in firing rates, etc...).
 
-as.htbDb offers an easy way for this kind of
+\code{\link[=as.htbDb]{as.htbDb()}} offers an easy way for this kind of
 artificial data construction.
-It creates an htbDb object with empty or
-designated artificial data contents.
-Because htbDb objects is actually a list with predetermined
+It creates an \code{htbDb} object with empty, or
+arbitrary artificial data contents provided by the user.
+Because \code{htbDb} objects is actually a list with predetermined
 properties and naming rules,
-as.htbDb receives a list as an input object,
-and converts it to an htbDb object.
+\code{\link[=as.htbDb]{as.htbDb()}} receives a list as an input object,
+and converts it to an \code{htbDb} object.
 Each element of the input list is regarded as
-separate channels of constructed htbDb object
+separate channels of constructed \code{htbDb} object
 (i.e., spike timings for spike database,
 codes of events for event database,
 and analog integer values for analog database).
 
 Note that for event databases,
-normal htbGetDb function performs data transformation
-using character pattern matching (see Details in htbGetDb).
-In as.htbDb, however, just pass event names (a vector of strings)
+normal \code{\link[=htbGetDb]{htbGetDb()}} function performs data transformation
+using character pattern matching (see Details in \code{\link[=htbGetDb]{htbGetDb()}}).
+In \code{\link[=as.htbDb]{as.htbDb()}}, however, just pass event names (a vector of strings)
 directly in the first element of the input list.
 The second element is regarded as
 channel with timing information.
@@ -75,3 +75,4 @@ channel with timing information.
     simplify = FALSE), type = "analog")
 
 }
+\keyword{IO}

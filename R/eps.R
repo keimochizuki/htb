@@ -1,12 +1,12 @@
-#' Constructor for an eps graphics device
+#' Encapsulated PostScript device
 #'
-#' Graphics device for an EPS format.
+#' Graphics device for an EPS (Encapsulated PostScript) format.
 #'
-#' eps is a wrapper for built-in postscript function in R.
-#' It opens a graphics device with an extension \dQuote{.eps}
-#' and several pre-determined parameters.
+#' [eps()] is a wrapper for built-in [grDevices::postscript()] function in R.
+#' It opens a graphics device as an Encapsulated PostScript,
+#' with .eps extension and several pre-determined parameters.
 #' It is noteworthy that specification of
-#' paper and horizontal arguments (as \dQuote{special} and FALSE)
+#' paper and horizontal arguments (as `special` and FALSE)
 #' is currently necessary for R to produce
 #' proper postscript output.
 #' Designating different values for these parameters may
@@ -20,7 +20,7 @@
 #' @param height A numeric. The height of the device in inches.
 #' @param paper A string. The type of the paper designated
 #'   in calling postscript function.
-#'   Should be \dQuote{special} (default) to avoid
+#'   Should be `special` (default) to avoid
 #'   coordinate disarrangement in using eps file
 #'   (e.g., vertical flipping when included in LaTeX).
 #' @param horizontal A logical. Whether to rotate

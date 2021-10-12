@@ -16,7 +16,7 @@ for (i in c("from", "to")) {
 	} else if (is.character(get(i))) {
 		assign(i, ras$ev[[get(i)]])
 		if (is.null(get(i))) {
-			stop("htbCountSpike: Non-existing event assigned as an interval.")
+			stop("Non-existing event assigned as an interval")
 		}
 	} else {
 		assign(i, lapply(X = n, FUN = rep, x = get(i)))

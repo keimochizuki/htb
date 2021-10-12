@@ -1,8 +1,8 @@
-#' Constructor of an empty/artificial htbDb object
+#' Constructor of empty htbDb objects
 #'
 #' Constructs an empty/artificial htbDb object with designated type.
 #'
-#' The readout from an .htb file is a list of htbDb objects
+#' The readout from an .htb file is a list of `htbDb` objects
 #' which is the most primitive data in TEMPO system.
 #' Normally you will continue analyzing those extracted data
 #' obtained in your own real-world experiment.
@@ -12,40 +12,40 @@
 #' using virtual data with known properties
 #' (e.g., time locking to some events, difference in firing rates, etc...).
 #'
-#' as.htbDb offers an easy way for this kind of
+#' [as.htbDb()] offers an easy way for this kind of
 #' artificial data construction.
-#' It creates an htbDb object with empty or
-#' designated artificial data contents.
-#' Because htbDb objects is actually a list with predetermined
+#' It creates an `htbDb` object with empty, or
+#' arbitrary artificial data contents provided by the user.
+#' Because `htbDb` objects is actually a list with predetermined
 #' properties and naming rules,
-#' as.htbDb receives a list as an input object,
-#' and converts it to an htbDb object.
+#' [as.htbDb()] receives a list as an input object,
+#' and converts it to an `htbDb` object.
 #' Each element of the input list is regarded as
-#' separate channels of constructed htbDb object
+#' separate channels of constructed `htbDb` object
 #' (i.e., spike timings for spike database,
 #' codes of events for event database,
 #' and analog integer values for analog database).
 #'
 #' Note that for event databases,
-#' normal htbGetDb function performs data transformation
-#' using character pattern matching (see Details in htbGetDb).
-#' In as.htbDb, however, just pass event names (a vector of strings)
+#' normal [htbGetDb()] function performs data transformation
+#' using character pattern matching (see Details in [htbGetDb()]).
+#' In [as.htbDb()], however, just pass event names (a vector of strings)
 #' directly in the first element of the input list.
 #' The second element is regarded as
 #' channel with timing information.
 #'
-#' @param db A list. The dataset to be converted into an htbDb object.
-#' @param type A string. The type of the resulting htbDb object
-#'   (either one of \dQuote{spike}, \dQuote{event} or \dQuote{analog}).
+#' @param db A list. The dataset to be converted into an `htbDb` object.
+#' @param type A string. The type of the resulting `htbDb` object
+#'   (either one of `spike`, `event` or `analog`).
 #'
-#' @return An htbDb object.
-#'   Note that normal readout from htbGetDb function is
-#'   a list of htbDb objects, because an htb file can
+#' @return An `htbDb` object.
+#'   Note that normal readout from [htbGetDb()] function is
+#'   a list of `htbDb` objects, because an htb file can
 #'   contain multiple databases at once.
-#'   On the other hand, as.htbDb returns just an htbDb ojbect
+#'   On the other hand, [as.htbDb()] returns just an `htbDb` ojbect
 #'   (not a list of those objects).
 #'   Therefore, some kind of data nesting and/or nest unpacking
-#'   may be required to use constructed htbDb object(s)
+#'   may be required to use constructed `htbDb` object(s)
 #'   in your testing.
 #'
 #' @examples
@@ -63,6 +63,8 @@
 #'     cumsum(ceiling(rnorm(2000, sd = 4))) },
 #'     simplify = FALSE), type = "analog")
 #'
+#' @keywords IO
+#'
 #' @export
 
 as.htbDb <- function(
@@ -73,7 +75,7 @@ as.htbDb <- function(
 ) {
 
 if (type == "event" && length(db) != 2) {
-	stop("as.htbDb: <db> must have length of two for event database.")
+	stop("`db` must have length of two for event database")
 }
 
 hd <- list(

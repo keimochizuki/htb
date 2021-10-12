@@ -22,8 +22,8 @@ from an htb file even if an RData is available.}
 }
 \value{
 A list of htbDb objects.
-  The length of the list is the number of databases existed
-  in the original htb file. (See Details.)
+The length of the list is the number of databases existed
+in the original htb file. (See Details.)
 }
 \description{
 Extracts htbDb object from an htb file or existing RData file.

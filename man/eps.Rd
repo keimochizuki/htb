@@ -2,7 +2,7 @@
 % Please edit documentation in R/eps.R
 \name{eps}
 \alias{eps}
-\title{Constructor for an eps graphics device}
+\title{Encapsulated PostScript device}
 \usage{
 eps(
   filename,
@@ -23,7 +23,7 @@ The extension (.eps) can be omitted.}
 
 \item{paper}{A string. The type of the paper designated
 in calling postscript function.
-Should be \dQuote{special} (default) to avoid
+Should be \code{special} (default) to avoid
 coordinate disarrangement in using eps file
 (e.g., vertical flipping when included in LaTeX).}
 
@@ -37,14 +37,14 @@ rotated in certain viewers.}
 \item{...}{Other arguments passed to postscript function.}
 }
 \description{
-Graphics device for an EPS format.
+Graphics device for an EPS (Encapsulated PostScript) format.
 }
 \details{
-eps is a wrapper for built-in postscript function in R.
-It opens a graphics device with an extension \dQuote{.eps}
-and several pre-determined parameters.
+\code{\link[=eps]{eps()}} is a wrapper for built-in \code{\link[grDevices:postscript]{grDevices::postscript()}} function in R.
+It opens a graphics device as an Encapsulated PostScript,
+with .eps extension and several pre-determined parameters.
 It is noteworthy that specification of
-paper and horizontal arguments (as \dQuote{special} and FALSE)
+paper and horizontal arguments (as \code{special} and FALSE)
 is currently necessary for R to produce
 proper postscript output.
 Designating different values for these parameters may

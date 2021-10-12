@@ -10,4 +10,5 @@ Imports: grDevices, graphics, stats, utils
 Suggests: testthat
 LazyLoad: yes
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

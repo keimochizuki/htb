@@ -1,16 +1,17 @@
-#' Checker for existing directories for file output
+#' Checker of output directory
 #'
-#' Checks for the existance of the directories to where the designated file(s) will be put.
+#' Checks for the existance of the directories
+#' to where the designated file(s) will be output.
 #'
 #' While doing your analyses, you may often want several directories
 #' to where the output files can be saved.
 #' But before saving, you need to first check
 #' whether appropriate directory to save outputs already exists.
-#' dir.check automatically does this process
+#' [dir.check()] automatically does this process
 #' by just passing filename(s) you are going to save subsequently.
 #' Thus the basic functionality is almost the same to
-#' \code{dir.create(basename(x))},
-#' but dir.check accepts multiple filenames
+#' `dir.create(basename(x))`,
+#' but [dir.check()] accepts multiple filenames
 #' and performs some additional path handling.
 #'
 #' @param filename Strings. The name of the files you want to save
