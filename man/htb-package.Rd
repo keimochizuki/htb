@@ -6,7 +6,15 @@
 \alias{htb-package}
 \title{This is test description in htb-package.R file.}
 \description{
-The htb package offers functions to perform neuroscientific analyses on single-neuron activity. The functions were originally constructed to work on files with .htb extension acquired with TEMPO system, for which the package was named. (Thus this package does not have anything to do with Hokkaido Television Broadcasting, LoL.) Although TEMPO system itself has already become somewhat ancient legacy, these functions can be still utilized to perform old-school analyses on neuronal activity data obtained with other recording platforms.
+The htb package offers functions to perform neuroscientific analyses on single-neuron activity. The functions were originally constructed to work on files with .htb extension acquired with TEMPO system, for which the package was named. (Thus this package does not have anything to do with Hokkaido Television Broadcasting, LOL.) Although TEMPO system itself has already become somewhat ancient legacy, these functions can be still utilized to perform old-school analyses on neuronal activity data obtained with other recording platforms.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/keimochizuki/htb}
+  \item Report bugs at \url{https://github.com/keimochizuki/htb/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Kei Mochizuki \email{k31mczk-git@yahoo.co.jp}
