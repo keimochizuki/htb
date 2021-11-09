@@ -31,8 +31,6 @@
 #'   rotated in certain viewers.
 #' @param ... Other arguments passed to postscript function.
 #'
-#' @return NULL
-#'
 #' @examples
 #'   \dontrun{
 #'   eps("test", width = 6, height = 4)

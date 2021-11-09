@@ -32,9 +32,7 @@
 #' @param side An integer. The side of the axis to put slashes
 #'   in the same way to other R's default plotting functionality
 #'   (1:bottom, 2:left, 3:top, 4:right).
-#' @param ... Other arguments passed to lines function.
-#'
-#' @return NULL
+#' @param ... Other arguments passed to [graphics::lines()] function.
 #'
 #' @examples
 #'   x <- seq(-3, 3)

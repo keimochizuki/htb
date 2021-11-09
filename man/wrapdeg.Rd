@@ -12,13 +12,9 @@ wrapdeg(deg, min = 0, leftopen = FALSE, rad = FALSE)
 \item{min}{A numeric. The minimal value (left limit) of angular range.}
 
 \item{leftopen}{A logical. Whether to use left-open ranging.
-By default \code{FALSE}, meaning that [min, min + 360) or
-[min, min + 2 * pi) is used as accepted range.
-When set \code{TRUE}, (min, min + 360] or (min, min + 2 * pi]
-is used instead.
-
-[min, min + 2 * pi) is used as accepted range.
-When set \code{TRUE}, (min, min + 360]: R:min,\%20min\%20+\%202\%20*\%20pi)\%20is\%20used\%20as\%20accepted\%20range.\%0A\%20\%20When\%20set\%20\%60TRUE\%60,\%20(min,\%20min\%20+\%20360}
+By default \code{FALSE}, meaning that the range include \code{min}
+but does not include \code{min + 360}.
+When set \code{TRUE}, the range now include \code{min} instead.}
 
 \item{rad}{A logical. Whether the values are in radian unit or not.}
 }
@@ -34,17 +30,15 @@ Angular values (degrees and radians) are one of the popular parameters
 you need to handle during analyses,
 especially in visual tasks and 2-D motor tasks.
 \code{\link[=wrapdeg]{wrapdeg()}} wraps the given angular values into a given range of degree
-like [-180, 180) or [0, 360).
-It allows left-open ranging, e.g., (-180, 180]
-when \code{leftopen} is \code{TRUE}.
+e.g., from 0 to 360, or from -180 to 180.
+The range is by default right-opened,
+i.e., does include the \code{min} but does not include \code{min + 360}.
+Left-opening is available when \code{leftopen} is set \code{TRUE}.
 It also allows radian operation when \code{rad} is \code{TRUE}.
-
-[0, 360).
-It allows left-open ranging, e.g., (-180, 180]: R:0,\%20360).\%0AIt\%20allows\%20left-open\%20ranging,\%20e.g.,\%20(-180,\%20180
 }
 \examples{
   d <- c(-120, -45, 0, 90, 180, 360)
-  r <- d / pi * 180
+  r <- d / 180 * pi
   wrapdeg(d)
   wrapdeg(d, -180)
   wrapdeg(d, -180, leftopen = TRUE)

@@ -2,7 +2,9 @@
 
 export(as.htbDb)
 export(axslash)
+export(blankplot)
 export(dir.check)
+export(ellipse)
 export(eps)
 export(htb.colors)
 export(htbGetDb)

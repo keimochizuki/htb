@@ -10,6 +10,7 @@ test_that("wrapdeg() returns right-open degrees by default", {
 
 test_that("Minimal value is excluded from the left-open range", {
 	expect_equal(wrapdeg(d, 0, leftopen = TRUE), c(180, 270, 360, 45, 180, 360))
+	expect_equal(wrapdeg(d, -180, leftopen = TRUE), c(180, -90, 0, 45, 180, 0))
 })
 
 r <- c(-pi, 0, pi, 2 * pi)
