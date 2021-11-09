@@ -17,11 +17,11 @@ of which the first column contains glob expression of the
 event codes and the second column contains the corresponding
 event names.}
 
-\item{remake}{A logical. Whether to re-extract htbDb object
+\item{remake}{A logical. Whether to re-extract \code{htbDb} object
 from an htb file even if an RData is available.}
 }
 \value{
-A list of htbDb objects.
+A list of \code{htbDb} objects.
 The length of the list is the number of databases existed
 in the original htb file. (See Details.)
 }
@@ -32,41 +32,43 @@ Extracts htbDb object from an htb file or existing RData file.
 TEMPO system may store several numbers of htb files
 in one session of recording.
 To read out the contents of these htb files,
-you have to complete many steps:
-open up a connection,
-count the number of database contained in that file,
+you have to complete the following steps:
+open up a connection to an htb file,
+count the number of database contained in it,
 read the header information out,
 extract the data,
 and finally close the connection.
+This may sound tiring for people with
+less experience in programming.
 In addition, the binary format of htb files for spike and event
 data is extremely redundant with massive zero-fillings.
-This induces long waiting each time when you want to
-extract the contents of htb files.
+It causes a long waiting time when you want to
+extract the contents of htb files upon every analysis.
 
-htbGetDb provides an easy way to carry out these
+\code{\link[=htbGetDb]{htbGetDb()}} provides an easy way to carry out these
 bothersome data extraction.
 All you have to do is just designate the name of an htb file.
-htbGetDb extracts data from the designated htb file,
-and creates htbDb objects.
+\code{\link[=htbGetDb]{htbGetDb()}} extracts data from the designated htb file,
+and creates \code{htbDb} objects.
 This is the most basic form of data in htb package.
-Each htbDb object is a list, containing the data
+Each \code{htbDb} object is a list, containing the data
 for all the channels in the original database.
 (See the following section for detailed information about
 the data format of htb files.)
 Because an htb file can contain multiple databases,
-the value returned by htbGetDb
-is a list of htbDb objects (instead of a single htbDb object).
+the value returned by \code{\link[=htbGetDb]{htbGetDb()}}
+is a list of \code{htbDb} objects (instead of a single \code{htbDb} object).
 This is always true even when only one database is extracted.
 In such cases, a list of length one will be returned,
-of whose the only content is an htbDb object.
+of whose the only content is an \code{htbDb} object.
 
-htbGetDb automatically saves the htbDb objects as RData file,
+\code{\link[=htbGetDb]{htbGetDb()}} automatically saves the \code{htbDb} objects as RData file,
 in the same directory and as the same name to
 the original htb file.
-This RData file will be loaded and returned by htbGetDb
+This RData file will be loaded and returned by \code{\link[=htbGetDb]{htbGetDb()}}
 next time you request the same data.
 Therefore, after you have once extracted the data from
-htb files with htbGetDb,
+htb files with \code{\link[=htbGetDb]{htbGetDb()}},
 the time needed for the data extraction will be reduced
 in the next time, because it actually does not reads the data from
 htb files but from RData files.
@@ -88,10 +90,10 @@ you can learn the binary format of htb files in TEMPO's reference manual.
 First of all, the unit of information stored with TEMPO system
 is an htb file, a binary file with .htb extension.
 In a given htb file, there can be a set of
-multiple experimental data called \dQuote{databases}.
+multiple experimental data called \emph{databases}.
 A database is a bundle of data with same data type,
 which is one of the three possible types:
-\dQuote{spike}, \dQuote{event} or \dQuote{analog}.
+\code{spike}, \code{event} or \code{analog}.
 As the names literally tell,
 the type of a database indicate what type of information
 is stored in that database.
@@ -113,7 +115,7 @@ experimental data into one htb file.
 
 A database, in turn, is composed of a MxN matrix,
 where M is the number of data points,
-and N is the number of data's input streams which are called \dQuote{channels}.
+and N is the number of data's input streams which are called \emph{channels}.
 A channel contains spiking of one isolated single neuron
 in spike database,
 and voltage input from one A/D board's input pin
@@ -137,13 +139,13 @@ one event sequence for data alignment,
 and two analog values that corresponds to the x and y coordinates
 of the eye position.
 Each of the three types of data must be stored in separate
-databases with \dQuote{spike}, \dQuote{event} and \dQuote{analog} data types,
+databases with \code{spike}, \code{event} and \code{analog} data types,
 but can be still held in one htb file.
 
-In addition, an htbDb object for event database
-has another special channel named \dQuote{time}.
-Those types of database is converted to \dQuote{time encoding}
-forms by htbGetDb, so this \dQuote{time} channel is necessary.
+In addition, an \code{htbDb} object for event database
+has another special channel named \code{time}.
+Those types of database is converted to \emph{time encoding}
+forms by \code{\link[=htbGetDb]{htbGetDb()}}, so this \code{time} channel is necessary.
 nuro nuro
 aaa. aas.
 
@@ -158,3 +160,4 @@ bbs  a ccc
   }
 
 }
+\keyword{IO}

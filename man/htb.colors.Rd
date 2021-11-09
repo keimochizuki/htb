@@ -24,8 +24,8 @@ Create a vector of n contiguous colors.
 When visualizing data in a graphical plot,
 R's built-in \code{\link[grDevices:palettes]{grDevices::rainbow()}} function is
 one of the best and handiest tools to create colors to use.
-However, when creating a small number of (say, 3 or 4)
-colors for categorical dataset,
+However, when creating a small number of (say, 4 or 5)
+colors for categorical data groups,
 the result sometimes contains indistinct colors
 such as highly bright cyan or yellow.
 \code{\link[=htb.colors]{htb.colors()}} deals with this problem,
