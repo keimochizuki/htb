@@ -79,39 +79,39 @@ if (type == "event" && length(db) != 2) {
 }
 
 hd <- list(
-	date = "Converted from non-htb file",
-	ldate = integer(),
-	cfg_file = "",
-	pro_file = "",
-	speed = integer(),
-	alloc = 0L,
-	offset = 0L,
-	period = integer(),
-	extension = integer(),
-	skip = integer(),
-	first_channel = 0L,
-	nchannels = length(db) - (type == "event"),
-	sweep_limit = integer(),
-	cancel_override = integer(),
-	func = integer(),
-	tag = integer(),
-	npages = integer(),
-	nsamples = length(db[[1]]),
+	date             = "Converted from non-htb file",
+	ldate            = integer(),
+	cfg_file         = "",
+	pro_file         = "",
+	speed            = integer(),
+	alloc            = 0L,
+	offset           = 0L,
+	period           = integer(),
+	extension        = integer(),
+	skip             = integer(),
+	first_channel    = 0L,
+	nchannels        = length(db) - (type == "event"),
+	sweep_limit      = integer(),
+	cancel_override  = integer(),
+	func             = integer(),
+	tag              = integer(),
+	npages           = integer(),
+	nsamples         = length(db[[1]]),
 	samples_per_page = integer(),
-	sweep = integer(),
-	next_page = integer(),
-	next_off = integer(),
-	title = "",
-	speed_units = integer(),
-	fileoffset = numeric(),
-	filename = "",
-	type = type,
-	madeon = as.character(Sys.Date()))
+	sweep            = integer(),
+	next_page        = integer(),
+	next_off         = integer(),
+	title            = "",
+	speed_units      = integer(),
+	fileoffset       = numeric(),
+	filename         = "",
+	type             = type,
+	madeon           = as.character(Sys.Date()))
 
 if (type == "event") {
 	names(db) <- c("ev", "time")
 } else {
-	names(db) <- paste("ch", seq(along = db), sep="")
+	names(db) <- paste("ch", seq(along = db), sep = "")
 }
 db$hd <- hd
 class(db) <- "htbDb"

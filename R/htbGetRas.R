@@ -25,16 +25,21 @@ if (length(ch) > 1) {
 	return(ras)
 }
 
-if (!all(sapply(X = alignment, FUN = length) == 2)) {
-	stop("htbGetRas: All elements of <alignment> must have lengths of two (in an xlim style).")
+is_named_xlims <- function(lim) {
+	all(sapply(X = lim, FUN = function(z) {
+		length(z) == 2 && is.vector(z, mode = "numeric")
+	})) && !is.null(names(lim))
+}
+if (!is_named_xlims(alignment)) {
+	stop("All elements of `alignment` must be lengths of two (in an xlim style)")
 }
 if (!is.null(incld)) {
-	if (all(sapply(X = incld, FUN = function(z) { (length(z) == 2) && !is.list(z) }))) {
+	if (is_named_xlims(incld)) {
 		incld <- list(incld)
 	}
 }
 if (!is.null(excld)) {
-	if (all(sapply(X = excld, FUN = function(z) { (length(z) == 2) && !is.list(z) }))) {
+	if (is_named_xlims(excld)) {
 		excld <- list(excld)
 	}
 }
@@ -52,8 +57,8 @@ param <- vector(length(alignment), mode = "list")
 for (i in seq(along = alignment)) {
 	param[[i]]$ev_align <- names(alignment)[i]
 	param[[i]]$xlim <- alignment[[i]]
-	param[[i]]$incld <- incld[[i]]
-	param[[i]]$excld <- excld[[i]]
+	param[[i]]$incld <- incld[[i]] # safe in case of NULL
+	param[[i]]$excld <- excld[[i]] # safe in case of NULL
 	param[[i]]$cond <- as.character(substitute(cond))
 }
 names(param) <- title
@@ -66,13 +71,13 @@ da <- vector(length(param), mode = "list")
 names(da) <- title
 ev <- vector(length(event), mode = "list")
 names(ev) <- event
-checkEv <- function(
+check_ev <- function(
 	ctp, # timepoint
 	cev, # event
 	clm  # lim
 ) {
-	o <- (db_event$time >= (ctp + clm[1])) & (db_event$time <= (ctp + clm[2]))
-	if (any(db_event$ev[o] == cev)) {
+	i <- (db_event$time >= (ctp + clm[1])) & (db_event$time <= (ctp + clm[2]))
+	if (any(db_event$ev[i] == cev)) {
 		return(TRUE)
 	} else {
 		return(FALSE)
@@ -82,29 +87,28 @@ checkEv <- function(
 for (i in seq(along = param)) {
 
 	tmp <- param[[i]]
-	l_da <- length(db_data[[ch]])
-	xlims <- matrix(NA, nrow=0, ncol=2)
+	xlims <- matrix(NA, nrow = 0, ncol = 2)
 
 	rpt <- 0
-	tmpDa <- list()
-	tmpEv <- vector(length(event), mode = "list")
-	tmpTrg <- numeric()
+	tmp_da <- list()
+	tmp_ev <- vector(length(event), mode = "list")
+	tmp_trg <- numeric()
 
 	for (trig in db_event$time[db_event$ev == tmp$ev_align]) {
 
 		checked <- logical(0)
 		if (!is.null(tmp$incld)) {
-			checked <- mapply(FUN = checkEv, trig, names(tmp$incld), tmp$incld)
+			checked <- mapply(FUN = check_ev, trig, names(tmp$incld), tmp$incld)
 		}
 		if (!is.null(tmp$excld)) {
-			checked <- c(checked, !mapply(FUN = checkEv, trig, names(tmp$excld), tmp$excld))
+			checked <- c(checked, !mapply(FUN = check_ev, trig, names(tmp$excld), tmp$excld))
 		}
 		if (!cond(checked)) {
 			next
 		}
 
 		# for event-based xlim designation
-		xlim <- sapply(X = 1:2, FUN=function(k) {
+		xlim <- sapply(X = 1:2, FUN = function(k) {
 			znum <- suppressWarnings(as.numeric(tmp$xlim[k]))
 			if (!is.na(znum)) {
 				return(znum)
@@ -132,27 +136,27 @@ for (i in seq(along = param)) {
 		if (fromto[1] <= 0) {
 			next
 		}
-		if ((db_data$hd$type == "analog") && (fromto[2] > l_da)) {
+		if ((db_data$hd$type == "analog") && (fromto[2] > length(db_data[[ch]]))) {
 			next
 		}
 
 		rpt <- rpt + 1
 		if (db_data$hd$type == "spike") {
-			tmpDa[[rpt]] <- db_data[[ch]][(db_data[[ch]] >= fromto[1]) & (db_data[[ch]] <= fromto[2])] - trig
+			tmp_da[[rpt]] <- db_data[[ch]][(db_data[[ch]] >= fromto[1]) & (db_data[[ch]] <= fromto[2])] - trig
 		} else if (db_data$hd$type == "analog") {
-			tmpDa[[rpt]] <- db_data[[ch]][fromto[1]:fromto[2]]
+			tmp_da[[rpt]] <- db_data[[ch]][fromto[1]:fromto[2]]
 		}
-		tmpTrg <- c(tmpTrg, trig)
+		tmp_trg <- c(tmp_trg, trig)
 
 		iev <- (db_event$time >= fromto[1]) & (db_event$time <= fromto[2])
 		evlist <- list(ev = db_event$ev[iev], time = db_event$time[iev] - trig)
 		for (l in seq(along = event)) {
-			tmpEv[[l]][rpt] <- evlist$time[evlist$ev == event[l]][1]
+			tmp_ev[[l]][rpt] <- evlist$time[evlist$ev == event[l]][1] # only first event in the range
 		}
 
 		xlims <- rbind(xlims, xlim)
 	}
-	names(tmpDa) <- tmpTrg
+	names(tmp_da) <- tmp_trg
 	if (nrow(xlims) == 0) {
 		xlims <- tmp$xlim
 	} else {
@@ -161,15 +165,15 @@ for (i in seq(along = param)) {
 	}
 	param[[i]]$xlim <- xlims
 
-	da[[i]] <- tmpDa
+	da[[i]] <- tmp_da
 	for (j in seq(along=event)) {
-		ev[[j]][i] <- list(tmpEv[[j]])
+		ev[[j]][i] <- list(tmp_ev[[j]])
 	}
 }
 
-noevent <- sapply(X = ev, FUN = function(x){ all(is.na(unlist(x))) })
-event <- event[!noevent]
-ev <- ev[!noevent]
+ev_exist <- !sapply(X = ev, FUN = function(x){ all(is.na(unlist(x))) })
+event <- event[ev_exist]
+ev <- ev[ev_exist]
 
 names(ev) <- event
 for (i in seq(along = ev)) {

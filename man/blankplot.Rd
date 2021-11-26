@@ -62,8 +62,8 @@ from where your data visualization can start over.
     2 * cos(3 * r) - cos(4 * r)
   blankplot(range(x), range(y))
   col <- rainbow(n)
-  segments(x[-n], y[-n], 0, 0, col = col)
-  segments(x[-n], y[-n], x[-1], y[-1], col = col, lwd = 2)
+  segments(x, y, x[1], y[1], col = col, lty = "22")
+  segments(x[-n], y[-n], x[-1], y[-1], col = col[-1])
 
 }
 \keyword{hplot}
