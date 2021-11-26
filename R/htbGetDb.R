@@ -476,7 +476,7 @@ if (file.exists(fn_rdata) && !remake) {
 				ec <- sub("^[[:blank:]]+", "", e[, 1])
 				ec <- gsub("\\*", "[^,]*", ec)
 				ec <- gsub("\\?", "[^,]", ec)
-				ec <- paste("^", ec, sep = "")
+				ec <- paste("^", ec, "$", sep = "")
 
 				et <- lapply(X = ec, FUN = function(z) {
 					j <- grepl(z, codes)
