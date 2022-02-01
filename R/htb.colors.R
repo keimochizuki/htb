@@ -102,6 +102,20 @@ if (type == "rainbow") {
 		col <- col[1:n]
 		pal <- FALSE
 	}
+} else if (type == "excel") {
+	col <- c("#000080", "#FF00FF", "#FFFF00", "#00FFFF",
+		"#800080", "#800000", "#008080", "#0000FF")
+	if (n <= 8) {
+		col <- col[1:n]
+		pal <- FALSE
+	}
+} else if (type == "fuckingexcel") {
+	col <- c("#9999FF", "#993366", "#FFFFCC", "#CCFFFF",
+		"#660066", "#FF8080", "#0066CC", "#CCCCFF")
+	if (n <= 8) {
+		col <- col[1:n]
+		pal <- FALSE
+	}
 } else {
 	stop("Undefined color `type` designated")
 }

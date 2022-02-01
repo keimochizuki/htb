@@ -34,14 +34,16 @@ in one session of recording.
 To read out the contents of these htb files,
 you have to complete the following steps:
 open up a connection to an htb file,
-count the number of database contained in it,
+count the number of databases contained in it,
 read the header information out,
-extract the data,
+extract the data from target database,
 and finally close the connection.
+(The definition of a database is subsequently given in detail.)
 This may sound tiring for people with
 less experience in programming.
-In addition, the binary format of htb files for spike and event
-data is extremely redundant with massive zero-fillings.
+In addition, the binary format of htb files
+for spike and event data has one critical defect:
+an extreme redundancy with massive zero-fillings.
 It causes a long waiting time when you want to
 extract the contents of htb files upon every analysis.
 
@@ -65,7 +67,7 @@ of whose the only content is an \code{htbDb} object.
 \code{\link[=htbGetDb]{htbGetDb()}} automatically saves the \code{htbDb} objects as RData file,
 in the same directory and as the same name to
 the original htb file.
-This RData file will be loaded and returned by \code{\link[=htbGetDb]{htbGetDb()}}
+This RData file will be used by \code{\link[=htbGetDb]{htbGetDb()}}
 next time you request the same data.
 Therefore, after you have once extracted the data from
 htb files with \code{\link[=htbGetDb]{htbGetDb()}},
@@ -102,8 +104,8 @@ Spike databases contain spike timing information.
 Event databases contain timing information of certain events
 in the experiment, as well as the codes (integer values)
 to tell which event took place at each time point.
-Analog databases contain continuous sequence of analog values,
-recorded as a transition of voltage loaded on A/D converter board.
+Analog databases contain continuous sequences of analog values
+that originate from a transition of voltage loaded on A/D converter board.
 Details of each data type are subsequently mentioned.
 
 The type of a database must be one of the three types above.
@@ -113,7 +115,7 @@ However, as mentioned before, an htb file can contain
 multiple databases, and they can have different types.
 This way TEMPO system can bundle up different types of
 experimental data into one htb file.
-Of course, researchers can also choose to devide each type of data
+Of course, you can also choose to devide each type of data
 into different htb files as needed.
 
 A database, in turn, is composed of a MxN matrix,
@@ -129,10 +131,10 @@ is used to marker the timings of major events in the experiment
 (e.g., trial start, response onset, reward delivery, etc...),
 whereas the second channel stores additional information
 about the observed events
-(e.g., serial number of the trial, response time, amout of reward, etc...).
+(e.g., serial count of the trial, response time, amout of reward, etc...).
 All of these information is saved as signed or unsigned
 integer values whose bit rates (bit/sample) depend on
-the type of the database.
+the subtype of the database.
 
 Taken together, an htb file can be composed of
 multiple databases that can (but not necessarily need to) be
@@ -182,17 +184,17 @@ that corresponds to an voltage input stream from the A/D board.
 In one \code{analog} database, all the channels have the same sampling rates,
 and are jointly manipulated to start/stop storing inputs during recording.
 Thus the lengths of the elements (numbers of values recorded from each pin)
-must be precisely identical in the case of \code{analog}.
+must be precisely identical in the case of \code{analog} database.
 
 In \code{event} type, things are a bit complicated.
 Each element of an \code{event} database originally corresponds to
 different event channel
 defined in the TEMPO configuration.
-(By the way, TEMPO system works according to
+(For your information, TEMPO system works according to
 a \emph{protocol} file with .pro extension and
 a \emph{protocol configuration} file with .pcf extension.
 Configuration of databases is designated in the latter file.)
-The number of channels contained in a database is
+The number of channels contained in an \code{event} database is
 completely arbitrary and up to the experimenter.
 The critical thing here is, that TEMPO system can accept
 only integer values for identification of task events.
@@ -217,7 +219,7 @@ let call these integer values (e.g., 1) as expressions in event codes,
 and corresponding literal labels (e.g., TRIALSTART)
 as expressions in event names.
 
-Like the example above, you can store event information
+As in the example above, you can store event information
 into your \code{event} database only after
 you establish name-to-code pairing rule.
 Then, the information of codes (together with their timings)
@@ -241,7 +243,7 @@ with event codes (1st column) and names (2nd column).
 Each row corresponds to a pair of event code and name.
 Rows starting with a number sign (#) are omitted.
 In the case of former example,
-this \code{ecode} file will read as follows:
+this \code{ecode} file should read as follows:
 \tabular{rl}{
 1 \tab TRIALSTART \cr
 2 \tab CUEON      \cr
@@ -249,8 +251,8 @@ this \code{ecode} file will read as follows:
 6 \tab RESPONSE   \cr
 10 \tab TRIALEND}
 Beware of column separation with a tab.
-This table tells \code{\link[=htbGetDb]{htbGetDb()}} function how to re-translate
-event codes (in the original .htb file) into
+This table informs \code{\link[=htbGetDb]{htbGetDb()}} function about how to re-translate
+event codes (in the original .htb file) back into
 event names (in \code{htbDb} object and further used in your subsequent analyses).
 
 As a result, in \code{event} type,
@@ -273,9 +275,8 @@ essentially similar to the table shown above.
 However, as previously mentioned, an \code{event} database can
 be composed of multiple channels depending on your
 TEMPO configuration.
-In such a case, you need to designate the event codes
-(the first column in \code{ecode} file) as
-comma-separated glob expressions.
+In such a case, you need to use comma-separated glob expressions
+in the first column of your \code{ecode} file.
 
 A \code{glob} is a simple wildcarding commonly used in programming language.
 In short, an asterisk matches to 0 or more arbitrary character,
@@ -293,7 +294,7 @@ your \code{ecode} file should be like:
 You can see that the first column is composed of
 comma-separated two values.
 These correspond to the values of the first and second channel
-you require to regard an event to be occurred.
+needed for an event to be regarded to occur.
 Because an asterisk matches any value,
 this example means that you are actually ignoring
 the second channel in your database.
@@ -305,7 +306,8 @@ For example, imagine now your task have two different
 (visual or auditory or whatever) cues at left and right,
 as well as two separate left and right response keys.
 You may want to use the same event code \code{2}
-to indicate the presentation of the cue.
+to indicate the presentation of the cue
+(as in the examples we have used so far).
 But you will also want to differentiate
 whether the cue was presented on left or right side.
 Now, you can utilize your second channel of the \code{event} database.
@@ -351,9 +353,9 @@ and then go further to compare detailed conditional difference
 However, using the package's other functionalities
 like htbCollapseCond(),
 you can combine already-devided data groups into a merged one.
-Thus you can also the same kind of analysis
-by mark task events in the most detailed way (like left or right),
-and then combine them to see a gross trend.
+Thus you can also perform the same kind of analysis
+by first marking task events in the most detailed way (like left or right),
+and then combining them to see a gross trend.
 }
 
 \examples{

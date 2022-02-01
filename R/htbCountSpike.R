@@ -24,7 +24,7 @@ for (i in c("from", "to")) {
 }
 l <- mapply(FUN = function(z1, z2) { z2 - z1 }, from, to, SIMPLIFY = FALSE)
 
-s <- mapply(FUN = function(ss, fs, ts){
+s <- mapply(FUN = function(ss, fs, ts) {
 	if (length(ss) == 0) {
 		return(NULL)
 	} else {

@@ -1,3 +1,103 @@
+#' Creator for htbRas object
+#'
+#' Creates htbRas object from htbDb objects.
+#'
+#' In order to assess the function of recorded neural activity,
+#' you need to examine the relationship between neuron's firing
+#' and other experimental factors such as task events.
+#' For example, some neurons may be activated at the time
+#' of visual cue presentation, while others may fire
+#' when the response is made.
+#' For this analysis, your first step will be aligning
+#' the neural activity by the occurrence of
+#' a given task event.
+#' In other words, you need to collect the activity of
+#' the neuron around the onset of the targeted task event
+#' for multiple times,
+#' then you can create a rastergram or histogram for visually
+#' assess the event-related activity of the neuron.
+#'
+#' [htbGetRas()] performs this data alignment process
+#' for a given `htbDb` object.
+#' A pair of htbDb objects with `spike` and `event` types
+#' are used to create an aligned activity
+#' packed into a dedicated list variable called `htbRas` object.
+#' You can also use an `htbDb` object of `analog` type
+#' when you want to align continuous data
+#' (e.g., local field potential, electromyography, eye trajectory)
+#' instead of intermittent spike timing data.
+#' In either case, the `spike/analog` database and `event` database
+#' must have been recorded in the same session
+#' with completely identical storing configuration.
+#' Otherwise, resulting *alignment* of the data does not make sense
+#' since [htbGetRas()] has no capability in detecting
+#' temporal offset or mismatch between provided databases.
+#'
+#' @param db_data An `htbDb` object of `spike` or `analog` type
+#'   that contains the data you want to align.
+#' @param db_event An `htbDb` object of `event` type
+#'   used to align the data.
+#' @param alignment A named list.
+#'   Each element of the list must be a vector of length two,
+#'   that designate the range of the extracted data
+#'   around the time of aligning event in standard xlim style in R,
+#'   i.e., `c(from, to)`.
+#'   The name of the list is used as the name of the events to look at
+#'   for the alignment.
+#' @param incld A named list.
+#'   The task event(s) needed to exist within an arbitrary range
+#'   from the aligning event (designated by `alignment` argument).
+#'   Format is the same to that of `alignment`,
+#'   i.e., all the elements must be vectors of length two
+#'   indicating `from` and `to` of the temporal range,
+#'   and the name of the list corresponds to the events to be checked.
+#'   This argument can be a list of such named lists,
+#'   in which case they are used separately used for each element
+#'   of `alignment`.
+#' @param excld A named list.
+#'   Same to `incld` but for task event(s) that *must not* exist
+#'   within the range from aligning event.
+#' @param cond A function.
+#'   Conditional function (either [all()] or [any()]) used
+#'   in in/exclusion process.
+#'   When [all()] is used, a period of data is accepted
+#'   and incorporated into resulting `htbRas` object
+#'   if all the in/exclusion criteria designated by `incld` and `excld`
+#'   are fulfilled.
+#'   When [any()] is used, a period of data is appended
+#'   if any one or more criteria of `incld` and `excld` are fulfilled.
+#' @param ch Integer(s). The channel(s) of `db_data` to extract.
+#'   When multiple channels are designated, [htbGetRas()]
+#'   returns a list of `htbRas` objects (instead of an `htbRas` object)
+#'   as a result of data extraction for each channel of the `htbDb` object
+#'   with the same extraction settings.
+#' @param event Strings.
+#'   The names of task events you want to include in returning `htbRas` object.
+#'   The timing information of these events can be then used
+#'   in further visualization and analysis
+#'   (e.g., plotting the event when you draw a rastergram).
+#' @param title Strings.
+#'   The titles for the extraction whose length
+#'   equals to that of `alignment`.
+#'
+#' @return An `htbRas` object.
+#'
+#' @examples
+#'   alignment <- list(CUEON_L = c(-1500, 2000), CUEON_R = c(-1500, 2000))
+#'   incld <- list(TRIALSTART = c(-2000, 0), TRIALEND = c(0, 2000))
+#'   excld <- list(ERROR = c(0, 2000))
+#'   
+#'   \dontrun{
+#'   db_sp <- htbGetDb("spike.htb")
+#'   db_ev <- htbGetDb("event.htb")
+#'   ras <- htbGetRas(db_sp, db_ev, alignment,
+#'     incld = incld, excld = excld)
+#'   }
+#'
+#' @keywords utilities
+#'
+#' @export
+
 htbGetRas <- function(
 
 	db_data,
@@ -31,16 +131,22 @@ is_named_xlims <- function(lim) {
 	})) && !is.null(names(lim))
 }
 if (!is_named_xlims(alignment)) {
-	stop("All elements of `alignment` must be lengths of two (in an xlim style)")
+	stop("`alignment` must be a named list, all of whose elements being vectors of lengths two (in xlim style)")
 }
 if (!is.null(incld)) {
 	if (is_named_xlims(incld)) {
 		incld <- list(incld)
 	}
+	if (!all(sapply(X = incld, FUN = is_named_xlims))) {
+		stop("`incld` must be a named list whose format being similar to `alignment` (or a list of such lists)")
+	}
 }
 if (!is.null(excld)) {
 	if (is_named_xlims(excld)) {
 		excld <- list(excld)
+	}
+	if (!all(sapply(X = excld, FUN = is_named_xlims))) {
+		stop("`excld` must be a named list whose format being similar to `alignment` (or a list of such lists)")
 	}
 }
 n <- max(length(alignment), length(incld), length(excld))
