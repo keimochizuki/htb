@@ -341,9 +341,9 @@
 #'   in the original htb file. (See Details.)
 #'
 #' @examples
-#'   \dontrun{
-#'   db <- htbGetDb("an_htb_file.htb")
-#'   }
+#' \dontrun{
+#' db <- htbGetDb("an_htb_file.htb")
+#' }
 #'
 #' @keywords IO
 #'

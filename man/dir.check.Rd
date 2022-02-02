@@ -31,13 +31,13 @@ but \code{\link[=dir.check]{dir.check()}} accepts multiple filenames
 and performs some additional path handling.
 }
 \examples{
-  \dontrun{
-  f <- "test.eps"
-  dir.check(f)
-  eps(f, width = 6, height = 4)
-  example(htb.colors)
-  dev.off()
-  }
+\dontrun{
+f <- "test.eps"
+dir.check(f)
+eps(f, width = 6, height = 4)
+example(htb.colors)
+dev.off()
+}
 
 }
 \keyword{utilities}

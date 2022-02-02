@@ -359,9 +359,9 @@ and then combining them to see a gross trend.
 }
 
 \examples{
-  \dontrun{
-  db <- htbGetDb("an_htb_file.htb")
-  }
+\dontrun{
+db <- htbGetDb("an_htb_file.htb")
+}
 
 }
 \keyword{IO}

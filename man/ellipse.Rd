@@ -39,14 +39,14 @@ coordinate calculation and \code{\link[graphics:polygon]{graphics::polygon()}} f
 with independent two radii along its major and minor axes.
 }
 \examples{
-  plot(0, 0, type = "n", bty = "l",
-    xlab = "x", ylab = "y",
-    xlim = c(0, 100), ylim = c(0, 100))
-  ellipse(25, 10, 30, 20)
-  text(30, 20, "ellipse(25, 10, 30, 20)")
-  ellipse(35, 20, 60, 70, 30,
-    lwd = 3, col = "gray")
-  text(60, 70, "ellipse(35, 20, 60, 70, 30)")
+plot(0, 0, type = "n", bty = "l",
+  xlab = "x", ylab = "y",
+  xlim = c(0, 100), ylim = c(0, 100))
+ellipse(25, 10, 30, 20)
+text(30, 20, "ellipse(25, 10, 30, 20)")
+ellipse(35, 20, 60, 70, 30,
+  lwd = 3, col = "gray")
+text(60, 70, "ellipse(35, 20, 60, 70, 30)")
 
 }
 \keyword{aplot}

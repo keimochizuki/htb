@@ -83,16 +83,16 @@
 #' @return An `htbRas` object.
 #'
 #' @examples
-#'   alignment <- list(CUEON_L = c(-1500, 2000), CUEON_R = c(-1500, 2000))
-#'   incld <- list(TRIALSTART = c(-2000, 0), TRIALEND = c(0, 2000))
-#'   excld <- list(ERROR = c(0, 2000))
-#'   
-#'   \dontrun{
-#'   db_sp <- htbGetDb("spike.htb")
-#'   db_ev <- htbGetDb("event.htb")
-#'   ras <- htbGetRas(db_sp, db_ev, alignment,
-#'     incld = incld, excld = excld)
-#'   }
+#' alignment <- list(CUEON_L = c(-1500, 2000), CUEON_R = c(-1500, 2000))
+#' incld <- list(TRIALSTART = c(-2000, 0), TRIALEND = c(0, 2000))
+#' excld <- list(ERROR = c(0, 2000))
+#'
+#' \dontrun{
+#' db_sp <- htbGetDb("spike.htb")
+#' db_ev <- htbGetDb("event.htb")
+#' ras <- htbGetRas(db_sp, db_ev, alignment,
+#'   incld = incld, excld = excld)
+#' }
 #'
 #' @keywords utilities
 #'

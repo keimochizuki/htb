@@ -49,19 +49,19 @@
 #'   in your testing.
 #'
 #' @examples
-#'   db_spike <- as.htbDb(replicate(3, {
-#'     cumsum(ceiling(runif(100, 10, 50))) },
-#'     simplify = FALSE),
-#'     type = "spike")
+#' db_spike <- as.htbDb(replicate(3, {
+#'   cumsum(ceiling(runif(100, 10, 50))) },
+#'   simplify = FALSE),
+#'   type = "spike")
 #'
-#'   db_event <- as.htbDb(list(
-#'     c("TRL_START", "EV1", "EV2", "REWARD", "TRL_END"),
-#'     time = cumsum(ceiling(runif(5, 100, 300)))),
-#'     type = "event")
+#' db_event <- as.htbDb(list(
+#'   c("TRL_START", "EV1", "EV2", "REWARD", "TRL_END"),
+#'   time = cumsum(ceiling(runif(5, 100, 300)))),
+#'   type = "event")
 #'
-#'   db_analog <- as.htbDb(replicate(2, {
-#'     cumsum(ceiling(rnorm(2000, sd = 4))) },
-#'     simplify = FALSE), type = "analog")
+#' db_analog <- as.htbDb(replicate(2, {
+#'   cumsum(ceiling(rnorm(2000, sd = 4))) },
+#'   simplify = FALSE), type = "analog")
 #'
 #' @keywords IO
 #'

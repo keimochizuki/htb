@@ -32,11 +32,11 @@
 #' @param ... Other arguments passed to postscript function.
 #'
 #' @examples
-#'   \dontrun{
-#'   eps("test", width = 6, height = 4)
-#'   example(htb.colors)
-#'   dev.off()
-#'   }
+#' \dontrun{
+#' eps("test", width = 6, height = 4)
+#' example(htb.colors)
+#' dev.off()
+#' }
 #'
 #' @keywords device
 #'

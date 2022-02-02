@@ -21,13 +21,13 @@
 #'   Names of the directories that was actually created.
 #'
 #' @examples
-#'   \dontrun{
-#'   f <- "test.eps"
-#'   dir.check(f)
-#'   eps(f, width = 6, height = 4)
-#'   example(htb.colors)
-#'   dev.off()
-#'   }
+#' \dontrun{
+#' f <- "test.eps"
+#' dir.check(f)
+#' eps(f, width = 6, height = 4)
+#' example(htb.colors)
+#' dev.off()
+#' }
 #'
 #' @keywords utilities
 #'

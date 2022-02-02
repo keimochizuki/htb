@@ -28,15 +28,15 @@
 #' @param ... Other arguments passed to [graphics::plot()] function.
 #'
 #' @examples
-#'   n <- 100
-#'   r <- seq(0, 2 * pi, length.out = n)
-#'   x <- 16 * sin(r)^3
-#'   y <- 13 * cos(r) - 5 * cos(2 * r) -
-#'     2 * cos(3 * r) - cos(4 * r)
-#'   blankplot(range(x), range(y))
-#'   col <- rainbow(n)
-#'   segments(x, y, x[1], y[1], col = col, lty = "22")
-#'   segments(x[-n], y[-n], x[-1], y[-1], col = col[-1])
+#' n <- 100
+#' r <- seq(0, 2 * pi, length.out = n)
+#' x <- 16 * sin(r)^3
+#' y <- 13 * cos(r) - 5 * cos(2 * r) -
+#'   2 * cos(3 * r) - cos(4 * r)
+#' blankplot(range(x), range(y))
+#' col <- rainbow(n)
+#' segments(x, y, x[1], y[1], col = col, lty = "22")
+#' segments(x[-n], y[-n], x[-1], y[-1], col = col[-1])
 #'
 #' @keywords hplot
 #'

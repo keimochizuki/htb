@@ -35,14 +35,14 @@
 #' @param ... Other arguments passed to [graphics::lines()] function.
 #'
 #' @examples
-#'   x <- seq(-3, 3)
-#'   z <- 10
-#'   y <- pnorm(x)
-#'   plot(x, y, type = "o", bty = "l",
-#'     xlim = c(min(x), max(x) + 1), xaxt = "n")
-#'   points(max(x) + 1, pnorm(z))
-#'   axis(1, at = c(x, max(x) + 1), labels = c(x, z))
-#'   axslash(max(x) + 0.5, deg = 60)
+#' x <- seq(-3, 3)
+#' z <- 10
+#' y <- pnorm(x)
+#' plot(x, y, type = "o", bty = "l",
+#'   xlim = c(min(x), max(x) + 1), xaxt = "n")
+#' points(max(x) + 1, pnorm(z))
+#' axis(1, at = c(x, max(x) + 1), labels = c(x, z))
+#' axslash(max(x) + 0.5, deg = 60)
 #'
 #' @keywords aplot
 #'

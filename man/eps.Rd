@@ -53,11 +53,11 @@ in other applications such as LaTeX and Adobe Illustrator.
 (But this might be a candidate for the future bug fixing in R.)
 }
 \examples{
-  \dontrun{
-  eps("test", width = 6, height = 4)
-  example(htb.colors)
-  dev.off()
-  }
+\dontrun{
+eps("test", width = 6, height = 4)
+example(htb.colors)
+dev.off()
+}
 
 }
 \keyword{device}

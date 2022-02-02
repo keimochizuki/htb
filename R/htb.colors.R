@@ -38,26 +38,26 @@
 #' @return Strings. A vector of color codes in `#xxxxxx` format.
 #'
 #' @examples
-#'   piecol <- function(x) {
-#'     pie(rep(1, length(x)), labels = rep("", length(x)),
-#'       col = x, border = NA, radius = 0.95)
-#'   }
+#' piecol <- function(x) {
+#'   pie(rep(1, length(x)), labels = rep("", length(x)),
+#'     col = x, border = NA, radius = 0.95)
+#' }
 #'
-#'   par(mfrow = c(4, 5), mar = rep(0.1, 4))
-#'   for (f in c(grDevices::rainbow, htb.colors)) {
-#'     sapply(X = c(1:9, 30), FUN = function(n) {
-#'       piecol(f(n))
-#'       text(0, 0, n, col = "white", font = 2)
-#'     })
-#'   }
+#' par(mfrow = c(4, 5), mar = rep(0.1, 4))
+#' for (f in c(grDevices::rainbow, htb.colors)) {
+#'   sapply(X = c(1:9, 30), FUN = function(n) {
+#'     piecol(f(n))
+#'     text(0, 0, n, col = "white", font = 2)
+#'   })
+#' }
 #'
-#'   n <- c(10, 6, 12)
-#'   types <- c("rainbow", "bruna", "imas")
-#'   par(mfrow = c(2, 2))
-#'   mapply(FUN = function(z1, z2) {
-#'     piecol(htb.colors(z1, type = z2))
-#'     text(0, 0, z2, col = "white", font = 2)
-#'   }, n, types)
+#' n <- c(10, 6, 12)
+#' types <- c("rainbow", "bruna", "imas")
+#' par(mfrow = c(2, 2))
+#' mapply(FUN = function(z1, z2) {
+#'   piecol(htb.colors(z1, type = z2))
+#'   text(0, 0, z2, col = "white", font = 2)
+#' }, n, types)
 #'
 #' @keywords color
 #'
