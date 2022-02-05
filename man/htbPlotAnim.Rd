@@ -124,15 +124,15 @@ is not verified in this case.
 \examples{
 \dontrun{
 n <- 150
-walk0 <- cumsum(rnorm(n, mean = 0))
-walk1 <- cumsum(rnorm(n, mean = 0.2))
+w0 <- cumsum(rnorm(n, mean = 0))
+w1 <- cumsum(rnorm(n, mean = 0.2))
 htbPlotAnim("randomwalk.mp4", 320, 240, {
   par(mar = c(3, 3, 1, 1), las = 1)
   for (i in 1:n) {
     j <- 1:i
-    blankplot(xlim = c(0, i), ylim = range(c(walk0[j], walk1[j])))
-    lines(j, walk0[j], lty = "22")
-    lines(j, walk1[j], lwd = 2)
+    blankplot(xlim = c(0, i), ylim = range(c(w0[j], w1[j])))
+    lines(j, w0[j], lty = "22")
+    lines(j, w1[j], lwd = 2)
   }
 }, fps = 15)
 }
