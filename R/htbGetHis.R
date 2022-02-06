@@ -20,7 +20,30 @@
 #' containing a series of temporally smoothed firing rates
 #' composed of the same set of task conditions with the source `htbRas` object.
 #'
+#' The major parameter of a histogram is the width and steps
+#' of the sliding window for averaging.
+#' These parameters are designated by `bin` and `sep` arguments, respectively.
+#' If you use the same value (e.g., `100`) for both `bin` and `sep`,
+#' it means that averaging windows adjoin each other without overlaps.
+#' This is suitable for traditional histograms
+#' that look like a lined skyscraper of buildings.
+#' If you use small `sep` compared with `bin`,
+#' it means that the sliding window moves in a smaller stride.
+#' The windows overlap each other, but multiple usage (counting) of
+#' the same spikes by neighboring windows does not matter
+#' since the spike counts are anyway divided by the time width of the window.
+#' Thus, this setting simply results in a smoothed version
+#' of traditional histogram.
+#' If you set larger value for `sep` than `bin`,
+#' the windows get spaces in between.
+#' This result in ignoring your precious spikes falled into these spaces,
+#' and thus is normally no use.
+#'
 #' @param ras An `htbRas` object of `spike` type.
+#'   You can provide a list of `htbRas` objects simultaneously,
+#'   each of whose element is then used for histogram creation.
+#'   In this case, [htbGetHis()]
+#'   returns a list of `htbHis` objects (instead of an `htbHis` object).
 #' @param xlim A pair of numerics.
 #'   The range `c(from, to)` of time to calculate histograms.
 #'   When omitted (default), the range of the original `htbRas` object
@@ -30,9 +53,6 @@
 #'   The temporal width of the sliding window to calculate a histogram.
 #' @param sep A numeric.
 #'   The width of a step of the sliding window.
-#' @param type A string.
-#'   The shape of the sliding window previously used
-#'   but currently ignored.
 #'
 #' @return An `htbHis` object.
 #'
@@ -58,18 +78,15 @@ htbGetHis <- function(
 	ras,
 	xlim = NULL,
 	bin = 200,
-	sep = 10,
-	type = c("rectangular", "histogram")
+	sep = 10
 
 ) {
-
-type <- type[1]
 
 if ((class(ras) != "htbRas") && all(sapply(X = ras, FUN = class) == "htbRas")) {
 	his <- list()
 	for (i in seq(along=ras)) {
 		his[[i]] <- htbGetHis(ras[[i]], xlim = xlim,
-			bin = bin, sep = sep, type = type)
+			bin = bin, sep = sep)
 	}
 	names(his) <- names(ras)
 	return(his)
@@ -82,9 +99,6 @@ n <- length(da)
 if (is.null(bin)) {
 	bin <- sep
 } else if (is.null(sep)) {
-	sep <- bin
-}
-if (type == "histogram") {
 	sep <- bin
 }
 
@@ -107,11 +121,9 @@ if (attributes(ras)$type == "spike") {
 		n_spike <- length(t_spike)
 		n_trial <- length(da[[i]])
 		if (n_trial != 0) {
-			if (any(type == c("rectangular", "histogram"))) {
-				y[[i]] <- mapply(FUN = function(s, e) {
-					sum((t_spike >= s) & (t_spike < e))
-				}, start, end) / n_trial / (end - start) * 1000
-			}
+			y[[i]] <- mapply(FUN = function(s, e) {
+				sum((t_spike >= s) & (t_spike < e))
+			}, start, end) / n_trial / (end - start) * 1000
 		} else {
 			y[[i]] <- rep(NA, length(x))
 		}

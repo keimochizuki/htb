@@ -4,16 +4,14 @@
 \alias{htbGetHis}
 \title{Creator for htbHis object}
 \usage{
-htbGetHis(
-  ras,
-  xlim = NULL,
-  bin = 200,
-  sep = 10,
-  type = c("rectangular", "histogram")
-)
+htbGetHis(ras, xlim = NULL, bin = 200, sep = 10)
 }
 \arguments{
-\item{ras}{An \code{htbRas} object of \code{spike} type.}
+\item{ras}{An \code{htbRas} object of \code{spike} type.
+You can provide a list of \code{htbRas} objects simultaneously,
+each of whose element is then used for histogram creation.
+In this case, \code{\link[=htbGetHis]{htbGetHis()}}
+returns a list of \code{htbHis} objects (instead of an \code{htbHis} object).}
 
 \item{xlim}{A pair of numerics.
 The range \code{c(from, to)} of time to calculate histograms.
@@ -26,10 +24,6 @@ The temporal width of the sliding window to calculate a histogram.}
 
 \item{sep}{A numeric.
 The width of a step of the sliding window.}
-
-\item{type}{A string.
-The shape of the sliding window previously used
-but currently ignored.}
 }
 \value{
 An \code{htbHis} object.
@@ -55,6 +49,25 @@ packed as an \code{htbRas} object.
 Result is returned as a specialized list named \code{htbHis} object,
 containing a series of temporally smoothed firing rates
 composed of the same set of task conditions with the source \code{htbRas} object.
+
+The major parameter of a histogram is the width and steps
+of the sliding window for averaging.
+These parameters are designated by \code{bin} and \code{sep} arguments, respectively.
+If you use the same value (e.g., \code{100}) for both \code{bin} and \code{sep},
+it means that averaging windows adjoin each other without overlaps.
+This is suitable for traditional histograms
+that look like a lined skyscraper of buildings.
+If you use small \code{sep} compared with \code{bin},
+it means that the sliding window moves in a smaller stride.
+The windows overlap each other, but multiple usage (counting) of
+the same spikes by neighboring windows does not matter
+since the spike counts are anyway divided by the time width of the window.
+Thus, this setting simply results in a smoothed version
+of traditional histogram.
+If you set larger value for \code{sep} than \code{bin},
+the windows get spaces in between.
+This result in ignoring your precious spikes falled into these spaces,
+and thus is normally no use.
 }
 \examples{
 alignment <- list(CUEON_L = c(-1500, 2000), CUEON_R = c(-1500, 2000))
