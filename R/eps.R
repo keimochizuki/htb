@@ -29,7 +29,7 @@
 #'   is horizontally long or vertically tall.
 #'   Otherwise, the resulting graphics can be inappropriately
 #'   rotated in certain viewers.
-#' @param ... Other arguments passed to postscript function.
+#' @param ... Other arguments passed to [grDevices::postscript()].
 #'
 #' @examples
 #' \dontrun{

@@ -16,7 +16,7 @@
 #'   By default `1` meaning the ellipse is actually drawn as
 #'   a 360-gon (triacosiahexecontagon)
 #'   because of 1-degree separation between each point.
-#' @param ... Other arguments passed to [graphics::polygon()] function.
+#' @param ... Other arguments passed to [graphics::polygon()].
 #'
 #' @return A list.
 #'   The first and second element respectively corresponds to

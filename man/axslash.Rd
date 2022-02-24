@@ -46,7 +46,7 @@ should be naturally used.}
 in the same way to other R's default plotting functionality
 (1:bottom, 2:left, 3:top, 4:right).}
 
-\item{...}{Other arguments passed to \code{\link[graphics:lines]{graphics::lines()}} function.}
+\item{...}{Other arguments passed to \code{\link[graphics:lines]{graphics::lines()}}.}
 }
 \description{
 Draws a double slash to the axis to indicate a gap in graph range.

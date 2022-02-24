@@ -34,7 +34,7 @@ is horizontally long or vertically tall.
 Otherwise, the resulting graphics can be inappropriately
 rotated in certain viewers.}
 
-\item{...}{Other arguments passed to postscript function.}
+\item{...}{Other arguments passed to \code{\link[grDevices:postscript]{grDevices::postscript()}}.}
 }
 \description{
 Graphics device for an EPS (Encapsulated PostScript) format.

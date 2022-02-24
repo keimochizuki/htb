@@ -35,7 +35,7 @@ passed to \code{\link[graphics:par]{graphics::par()}}.}
 
 \item{ylab}{A string. The label for the y axis (by default a blank).}
 
-\item{...}{Other arguments passed to \code{\link[graphics:plot.default]{graphics::plot()}} function.}
+\item{...}{Other arguments passed to \code{\link[graphics:plot.default]{graphics::plot()}}.}
 }
 \description{
 Draws a blank plotting area for further handmade drawings.

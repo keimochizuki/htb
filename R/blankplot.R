@@ -25,7 +25,7 @@
 #' @param sub A string. The sub title (by default a blank).
 #' @param xlab A string. The label for the x axis (by default a blank).
 #' @param ylab A string. The label for the y axis (by default a blank).
-#' @param ... Other arguments passed to [graphics::plot()] function.
+#' @param ... Other arguments passed to [graphics::plot()].
 #'
 #' @examples
 #' n <- 100

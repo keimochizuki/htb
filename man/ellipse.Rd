@@ -22,7 +22,7 @@ By default \code{1} meaning the ellipse is actually drawn as
 a 360-gon (triacosiahexecontagon)
 because of 1-degree separation between each point.}
 
-\item{...}{Other arguments passed to \code{\link[graphics:polygon]{graphics::polygon()}} function.}
+\item{...}{Other arguments passed to \code{\link[graphics:polygon]{graphics::polygon()}}.}
 }
 \value{
 A list.
