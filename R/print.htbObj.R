@@ -1,4 +1,4 @@
-#' Printer for htb objects
+#' Print methods for htb objects
 #'
 #' Prints the brief summary of htb objects.
 #'

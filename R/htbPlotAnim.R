@@ -83,6 +83,7 @@
 #'   Ignored when using `ffmpeg` for mp4 output.
 #' @param verbose A logical. Whether to print detailed output
 #'   from the converting command into R's terminal.
+#' @param rmimgfiles A logical. Whether to remove static image files.
 #'
 #' @examples
 #' \dontrun{
@@ -119,7 +120,8 @@ htbPlotAnim <- function(
 	recursive = TRUE,
 	scale = 100,
 	transparent = "",
-	verbose = TRUE
+	verbose = TRUE,
+	rmimgfiles = TRUE
 
 ) {
 
@@ -159,7 +161,7 @@ grDevices::dev.off()
 
 
 
-cat("(", round(Sys.time() - start, 1), " s) ... ", sep = "")
+cat("(", round(difftime(Sys.time(), start, units = "secs"), 1), " s) ... ", sep = "")
 cat("Converting ")
 utils::flush.console()
 start <- Sys.time()
@@ -190,11 +192,13 @@ if (type == "mp4") {
 		" ", glob, " ", filename, sep = ""),
 		ignore.stdout = verbose, ignore.stderr = verbose)
 })
-cat("(", round(Sys.time() - start, 1), " s) ... Done\n", sep = "")
+cat("(", round(difftime(Sys.time(), start, units = "secs"), 1), " s) ... Done\n", sep = "")
 utils::flush.console()
 
-f <- list.files(path = dirname(tmp), pattern = regx, full.names = TRUE)
-file.remove(f)
+if (rmimgfiles) {
+	f <- list.files(path = dirname(tmp), pattern = regx, full.names = TRUE)
+	file.remove(f)
+}
 
 invisible()
 }
